@@ -1,0 +1,5 @@
+langchain==0.2.16
+langchain-groq==0.1.9
+pandas==2.2.2
+streamlit==1.37.1
+python-dotenv==1.0.1
