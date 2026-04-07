@@ -49,8 +49,8 @@ class QuestionGenerator:
             parser = PydanticOutputParser(pydantic_object=FillInTheBlanksQuestion)
             self.logger.info(f"Generating fill-in-the-blank question for topic '{topic}' with difficulty '{difficulty}'")
             question = self._retry_and_parse(fill_blank_prompt_template,parser,topic,difficulty)
-            if '_____' not in question.question:
-                raise ValueError("The question must contain '_____' to indicate the blank.")
+            if not any(blank in question.question for blank in ["_____", "______", "[blank]", "___"]):
+                raise ValueError("The question must contain a blank indicator to indicate the missing word.")
             self.logger.info(f"Generated a valid fill-in-the-blank question")
             return question
         except Exception as e:
